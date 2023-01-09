@@ -1,0 +1,19 @@
+What does this code print?
+
+  5.step(to: 10, by: 3) { |value| puts value }
+
+From https://docs.ruby-lang.org/en/2.7.0/Numeric.html#method-i-step the numeric 
+class we have this definition:
+
+#step(by: step, to: limit) {|i| block } → self 
+
+It Invokes the block with the sequence of numbers starting at the num that 
+called it, incremented by step on each call. The loop finishes when the value 
+to be passed to the block is greater than limit if positive, or less than limit 
+if negative.
+
+So, this will pass 5 and 8. When it gets to 11, it's greater than 10, so it 
+stops. So this will output:
+
+  5
+  8
