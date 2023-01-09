@@ -1,0 +1,16 @@
+Locate the ruby documentation for methods File::path and File#path. How are 
+they different?
+
+https://docs.ruby-lang.org/en/2.7.0/File.html
+
+They are both in the documentation of the File class. ::path is a class method 
+and it's called on the File class like:
+
+File.path(path)
+
+The #path method is an instance method that is called by an instance like this:
+
+file_we_created.path
+
+#path returns a string detailing the file's path, while ::path returns a string 
+of the path passed to it. 
