@@ -1,0 +1,26 @@
+Consider the following method and a call to that method:
+
+  def my_method(a, b = 2, c = 3, d)
+    p [a, b, c, d]
+  end
+
+  my_method(4, 5, 6)
+
+Use the ruby documentation to determine what this code will print.
+
+[4, 5, 6, 3]
+
+If I understand correctly, when you assign default values, then the next 
+argument does not have an explicit default, it will use the last one. 
+
+I found this in the Default Values section of:
+https://docs.ruby-lang.org/en/2.7.0/syntax/methods_rdoc.html
+
+I am wrong In the Calling Methods Default Positional Arguments section, it says 
+that it will always fulfil non default values if not supplied enough arguments. 
+So, in this case it was passed 3 arguments and has 4. Since the last argument 
+didn't have a default, it took the last value from what was passed. a and b got 
+set in order with the first and second value, and c was left with nothing to be 
+passed. We get: 
+
+[4, 5, 3, 6]
