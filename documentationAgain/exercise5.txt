@@ -1,0 +1,25 @@
+What do each of these puts statements output?
+
+  a = %w(a b c d e)
+  puts a.fetch(7)
+  puts a.fetch(7, 'beats me')
+  puts a.fetch(7) { |index| index**2 }
+
+%a initializes an array of strings, so a would equal:
+  ['a', 'b', 'c', 'd', 'e']
+
+#fetch(index) → obj from Array will return an element at the position index, 
+like Array#[index], but if the index lies outside the array bounds it throws an 
+IndexError. In this case, the first puts throws an IndexError as 7 > 4(the 
+largest index)
+
+#fetch(index, default) → obj from Array is just like #fetch(index) → obj, but 
+will return the default value if it is out of range. So the second puts will 
+output:
+
+  beats me
+
+#fetch(index) {|index| block} → obj runs the block instead of throwing an 
+error, so in this case, the third puts will output:
+
+  49
