@@ -1,12 +1,12 @@
-# Write a method that takes two arguments, a string and a positive integer, and 
+# Write a method that takes two arguments, a string and a positive integer, and
 # prints the string as many times as the integer indicates.
-# 
+#
 # Example:
-# 
+#
 # repeat('Hello', 3)
-# 
+#
 # Output:
-# 
+#
 # Hello
 # Hello
 # Hello
@@ -50,7 +50,7 @@ puts "repeat('Hello',3):"
 repeat('Hello', 3)
 
 puts "repeat('My name',0):"
-repeat('My name',0)
+repeat('My name', 0)
 
 # repeat('Hello',3):
 # Hello
