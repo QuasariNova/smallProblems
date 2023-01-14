@@ -1,6 +1,6 @@
 # Build a program that asks a user for the length and width of a room in meters
 # and then displays the area of the room in both square meters and square feet.
-# 
+#
 # Note: 1 square meter == 10.7639 square feet
 #
 # Do not worry about validating the input at this time.
@@ -47,6 +47,8 @@ area_ft2 = length * width
 area_in2 = area_ft2 * SQFEET_TO_SQINCHES
 area_cm2 = area_in2 * SQINCHES_TO_SQCM
 
-puts "The area of the room is #{area_ft2.round(2)} square feet " + \
-     "(#{area_in2.round(2)} square inches or #{area_cm2.round(2)} " + \
-     "square centimeters)."
+puts <<~OUTPUT.delete("\n")
+  The area of the room is #{area_ft2.round(2)} square feet
+  (#{area_in2.round(2)} square inches or #{area_cm2.round(2)}
+  square centimeters).
+OUTPUT

@@ -2,9 +2,9 @@
 # prints the results of the following operations on those two numbers:
 # addition, subtraction, product, quotient, remainder, and power. Do not worry
 # about validating the input.
-# 
+#
 # Example
-# 
+#
 # ==> Enter the first number:
 # 23
 # ==> Enter the second number:
@@ -17,7 +17,7 @@
 # ==> 23 ** 17 = 141050039560662968926103
 
 def prompt(string)
-  string.lines.each { |s| puts "==> #{s}"}
+  string.lines.each { |s| puts "==> #{s}" }
 end
 
 numbers =

@@ -2,7 +2,7 @@
 # number on a separate line.
 #
 # Original Answer:
-# Array(1..99).each { |n| puts n if n.odd? } # Array is superflous, the range 
+# Array(1..99).each { |n| puts n if n.odd? } # Array is superflous, the range
 #                                              has Range#each...
 #
 # Further Exploration:
@@ -11,9 +11,9 @@
 # Integer#upto or Array#select methods, or maybe use Integer#odd?
 #
 # Let's look at Integer#upto
-# Its upto(limit), it creates a block that iterates from the caller to the 
+# Its upto(limit), it creates a block that iterates from the caller to the
 # passed value, its basically just an each over my array made from an array. I
-# think I'll use something different. 
+# think I'll use something different.
 # Let's try Range#step
 # It's step(n = 1) where it iterates the range increasing by step
 

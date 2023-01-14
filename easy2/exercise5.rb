@@ -12,7 +12,7 @@
 # Original Answer:
 # print "What is your name?"
 # name = gets.chomp
-# 
+#
 # output = if name.ends_with? '!'
 #            "HELLO #{name.chop.upcase}. WHY ARE WE SCREAMING?"
 #          else
@@ -21,14 +21,14 @@
 # puts ouptut
 #
 # Their solution uses an -1 index on the string. I forgot you could do this to
-# chose characters from the end. 
-# The Further exploration wants me to modify their solution to use 
+# chose characters from the end.
+# The Further exploration wants me to modify their solution to use
 # String#chomp! and String#chop! each
 #
 # String#chop!:
 # print 'What is your name? '
 # name = gets.chomp
-# 
+#
 # if name[-1] == '!'
 #   name.chop!
 #   puts "HELLO #{name.upcase}. WHY ARE WE SCREAMING?"
