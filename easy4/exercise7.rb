@@ -18,7 +18,8 @@
 #
 # string_to_integer('4321') == 4321
 # string_to_integer('570') == 570
-
+#
+# Original Answer
 ZERO_ASCII = 48
 
 def string_to_integer(string)
@@ -31,6 +32,23 @@ def string_to_integer(string)
 
   number
 end
+#
+# Further Exploration:
+# Write a hexadecimal_to_integer method that converts a string representing a
+# hexadecimal number to its integer value.
 
-puts string_to_integer('4321') == 4321
-puts string_to_integer('570') == 570
+A_ASCII = 97
+
+def hexadecimal_to_integer(hex_string)
+  reversed_string = hex_string.downcase.bytes.reverse
+  number = 0
+
+  reversed_string.each_with_index do |char, i|
+    char_value = char >= A_ASCII ? 10 + char - A_ASCII : char - ZERO_ASCII
+    number += char_value * 16**i
+  end
+
+  number
+end
+
+puts hexadecimal_to_integer('4D9f') == 19871
