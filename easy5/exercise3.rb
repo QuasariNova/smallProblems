@@ -17,20 +17,42 @@
 # before_midnight('12:34') == 686
 # after_midnight('24:00') == 0
 # before_midnight('24:00') == 0
-MINUTES_IN_DAY = 1440
-MINUTES_IN_HOUR = 60
+# MINUTES_IN_DAY = 1440
+# MINUTES_IN_HOUR = 60
+#
+# def convert_to_minutes(time_string)
+#   time_split = time_string.split(':')
+#   time_split[0].to_i * MINUTES_IN_HOUR + time_split[1].to_i
+# end
+#
+# def after_midnight(time_string)
+#   convert_to_minutes(time_string) % 1440
+# end
+#
+# def before_midnight(time_string)
+#   (MINUTES_IN_DAY - convert_to_minutes(time_string)) % 1440
+# end
+#
+# How would these methods change if you were allowed to use the Date and Time
+# classes?
+require 'time'
+TODAY = Time.strptime('00:00', '%H:%M')
+TOMORROW = Time.strptime('24:00', '%H:%M')
+SECONDS_IN_MINUTES = 60
+HOURS_IN_DAYS = 1440
 
-def convert_to_minutes(time_string)
-  time_split = time_string.split(':')
-  time_split[0].to_i * MINUTES_IN_HOUR + time_split[1].to_i
+def get_time(time_string)
+  Time.strptime(time_string, '%H:%M')
 end
 
 def after_midnight(time_string)
-  convert_to_minutes(time_string) % 1440
+  minutes = (get_time(time_string) - TODAY).to_i / SECONDS_IN_MINUTES
+  minutes % HOURS_IN_DAYS
 end
 
 def before_midnight(time_string)
-  (MINUTES_IN_DAY - convert_to_minutes(time_string)) % 1440
+  minutes = (TOMORROW - get_time(time_string)).to_i / SECONDS_IN_MINUTES
+  minutes % HOURS_IN_DAYS
 end
 
 puts after_midnight('00:00') == 0
