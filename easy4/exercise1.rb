@@ -10,7 +10,7 @@
 # short_long_short('', 'xyz') == "xyz"
 
 def short_long_short(string_one, string_two)
-  if string_two.length <  string_one.length
+  if string_two.length < string_one.length
     string_two + string_one + string_two
   else
     string_one + string_two + string_one

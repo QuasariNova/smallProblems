@@ -24,7 +24,7 @@
 def leap_year?(year)
   return false unless year % 4 == 0
   return year % 400 == 0 if year > 1752 && year % 100 == 0
-  return true
+  true
 end
 
 puts leap_year?(2016) == true
