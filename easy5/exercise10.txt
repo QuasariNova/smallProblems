@@ -1,0 +1,24 @@
+You are given a method named spin_me that takes a string as an argument and
+returns a string that contains the same words, but with each word's characters
+reversed. Given the method's implementation, will the returned string be the
+same object as the one passed in as an argument or a different object?
+
+1)  def spin_me(str)
+2)    str.split.each do |word|
+3)      word.reverse!
+4)    end.join(" ")
+5)  end
+6)
+7)  spin_me("hello world") # "olleh dlrow"
+
+This will output a different string. We define method def_spin_me on line 1
+with a String parameter named str. When we call the String#split method on line
+2 on the variable string, it returns a new array with references to multiple
+new String objects that are the original string split at ' '. Enumerable#each
+is called, which will iterate over these new String objects in the array. So,
+since the String objects are new in memory, when we call String.reverse! we are
+manipulating those objects and not the original string.
+
+At 4 we return the value returned when invoking Array#join from our split
+array, with an argument of " ", which returns the array converted into a string
+using " " as a spacer between items.
