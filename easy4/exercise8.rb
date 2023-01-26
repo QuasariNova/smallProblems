@@ -36,7 +36,7 @@ end
 
 def string_to_signed_integer(string)
   sign = string.chr == '-' ? -1 : 1
-  string = string.delete('-', '+')
+  string = string.delete('-+')
   string_to_integer(string) * sign
 end
 
