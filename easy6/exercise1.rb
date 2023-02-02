@@ -46,7 +46,7 @@
 DEGREE = "\xC2\xB0"
 SUBDEGREE_VALUE = 60
 
-def float_to_angle(float)
+def float_to_dms(float)
   angle = []
 
   until angle.size == 3
@@ -58,13 +58,13 @@ def float_to_angle(float)
   angle
 end
 
-# p float_to_angle(30) == [30, 0, 0]
-# p float_to_angle(76.73) == [76, 43, 48]
-# p float_to_angle(93.034773) == [93, 2, 5]
+# p float_to_dms(30) == [30, 0, 0]
+# p float_to_dms(76.73) == [76, 43, 48]
+# p float_to_dms(93.034773) == [93, 2, 5]
 
 def dms(angle)
-  arr = float_to_angle(angle % 360)
-  format("%d#{DEGREE}%02d'%02d\"", arr[0], arr[1], arr[2])
+  degrees, minutes, seconds = float_to_dms(angle % 360)
+  format("#{degrees}#{DEGREE}%02d'%02d\"", minutes, seconds)
 end
 
 p dms(30) == %(30°00'00")
