@@ -31,10 +31,30 @@
 #   - if not just pass character
 # return new string
 
-def staggered_case(str)
+# def staggered_case(str)
+#   need_cap = true
+#   str.chars.map do |char|
+#     next char unless char =~ /[A-Za-z]/
+
+#     need_cap = !need_cap # just done here to save a line
+#     if !need_cap # since we prematurely flipped it, we look for opposite
+#       char.upcase
+#     else
+#       char.downcase
+#     end
+#   end.join
+# end
+
+# further exploration
+# Modify this method so the caller can determine whether non-alphabetic
+# characters should be counted when determining the upper/lowercase state. That
+# is, you want a method that can perform the same actions that this method
+# does, or operates like the previous version.
+
+def staggered_case(str, consider_other: false)
   need_cap = true
   str.chars.map do |char|
-    next char unless char =~ /[A-Za-z]/
+    next char if char =~ /[^A-Za-z]/ && !consider_other
 
     need_cap = !need_cap # just done here to save a line
     if !need_cap # since we prematurely flipped it, we look for opposite
@@ -48,3 +68,9 @@ end
 p staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
 p staggered_case('ALL CAPS') == 'AlL cApS'
 p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
+
+p staggered_case('I Love Launch School!', consider_other: true) ==
+  'I LoVe lAuNcH ScHoOl!'
+p staggered_case('ALL_CAPS', consider_other: true) == 'AlL_CaPs'
+p staggered_case('ignore 77 the 444 numbers', consider_other: true) ==
+  'IgNoRe 77 ThE 444 NuMbErS'
