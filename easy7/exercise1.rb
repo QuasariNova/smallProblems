@@ -29,11 +29,28 @@
 # Iterate over both arrays alternatively adding elements to the new array
 # Return the new array's reference
 
+# def interleave(arr1, arr2)
+#   arr1.each_with_index.with_object([]) do |(e, i), combine|
+#     combine << e << arr2[i]
+#   end
+# end
+
+# further exploration
+# Take a few minutes to read about Array#zip. #zip doesn't do the same thing as
+# interleave, but it is very close, and more flexible. In fact, interleave can
+# be implemented in terms of zip and one other method from the Array class. See
+# if you can rewrite interleave to use zip.
+
 def interleave(arr1, arr2)
-  arr1.each_with_index.with_object([]) do |(e, i), combine|
-    combine << e << arr2[i]
+  combine = []
+
+  arr1.zip(arr2) do |sub_array|
+    sub_array.each { |element| combine << element }
   end
+
+  combine
 end
 
 p interleave([1, 2, 3], ['a', 'b', 'c']) == [1, 'a', 2, 'b', 3, 'c']
 p interleave(['a', nil], [nil, 'b']) == ['a', nil, nil, 'b']
+p interleave([[0, 1], 3], [2, [4, 5]]) == [[0, 1], 2, 3, [4, 5]]
