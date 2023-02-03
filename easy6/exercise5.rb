@@ -31,16 +31,23 @@
 # a
 # - loop over array from last element, pushing value to new array
 
+# def reverse(arr)
+#   index = arr.size - 1
+#   rev_arr = []
+
+#   until index < 0
+#     rev_arr << arr[index]
+#     index -= 1
+#   end
+
+#   rev_arr
+# end
+
+# further exploration alogrithm
+# - iterate over array putting element as first element
+
 def reverse(arr)
-  index = arr.size - 1
-  rev_arr = []
-
-  until index < 0
-    rev_arr << arr[index]
-    index -= 1
-  end
-
-  rev_arr
+  arr.each_with_object([]) { |value, rev| rev.unshift value }
 end
 
 p reverse([1,2,3,4]) == [4,3,2,1]          # => true
