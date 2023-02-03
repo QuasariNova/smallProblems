@@ -38,6 +38,26 @@ def staggered_case(str)
   end
 end
 
-p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
-p staggered_case('ALL_CAPS') == 'AlL_CaPs'
-p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+# Further exploration
+# Can you modify this method so the caller can request that the first character
+# be downcased rather than upcased? If the first character is downcased, then
+# the second character should be upcased, and so on.
+
+def staggered_case2(str, invert: false)
+  str.each_char.with_index.with_object("") do |(char, index), staggered|
+    staggered << if index.even?
+                   invert ? char.downcase : char.upcase
+                 else
+                   invert ? char.upcase : char.downcase
+                 end
+  end
+end
+
+# p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+# p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+# p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+
+p staggered_case2('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case2('ALL_CAPS', invert: true) == 'aLl_cApS'
+p staggered_case2('ignore 77 the 444 numbers', invert: true) ==
+  'iGnOrE 77 tHe 444 nUmBeRs'
