@@ -53,7 +53,18 @@ def substrings(str)
   (0..last).map { |i| leading_substrings(str[i..last]) }.flatten
 end
 
+# def palindrome?(str)
+#   return false if str.size < 2
+#   str == str.reverse
+# end
+
+# Further Exploration
+# Can you modify this method (and/or its predecessors) to ignore
+# non-alphanumeric characters and case? Alphanumeric characters are alphabetic
+# characters(upper and lowercase) and digits.
+
 def palindrome?(str)
+  str = str.downcase.delete('^a-z0-9')
   return false if str.size < 2
   str == str.reverse
 end
@@ -64,11 +75,13 @@ end
 
 p palindromes('abcd') == []
 p palindromes('madam') == ['madam', 'ada']
-p palindromes('hello-madam-did-madam-goodbye') == [
-  'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
-  'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
-  '-madam-', 'madam', 'ada', 'oo'
-]
+p palindromes('hello-madam-did-madam-goodbye') #== [
+#   'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+#   'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+#   '-madam-', 'madam', 'ada', 'oo'
+# ]
 p palindromes('knitting cassettes') == [
   'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
 ]
+
+p palindromes('Hi---9---i+=h')
