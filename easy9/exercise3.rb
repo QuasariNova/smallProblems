@@ -29,11 +29,22 @@
 # - Iterate over range adding each element to arr
 # - Return arr
 
+# def sequence(num)
+#   # 1.upto(num).with_object([]) { |ele, arr| arr << ele }
+#   Array(1..num) # (1..num).to_a also works
+# end
+
+# Further exploration
+# Food for thought: what do you think sequence should return if the argument is
+# not greater than 0. For instance, what should you do if the argument is -1?
+# Can you alter your method to handle this case?
+
 def sequence(num)
-  # 1.upto(num).with_object([]) { |ele, arr| arr << ele }
-  Array(1..num) # (1..num).to_a also works
+  return (1..num).to_a if num >= 1
+  1.downto(num).with_object([]) { |ele, arr| arr << ele }
 end
 
 p sequence(5) == [1, 2, 3, 4, 5]
 p sequence(3) == [1, 2, 3]
 p sequence(1) == [1]
+p sequence(-5) == [1, 0, -1, -2, -3, -4, -5]
