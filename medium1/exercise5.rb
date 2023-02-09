@@ -48,13 +48,36 @@
 # - Concatenate the arr with middle and a reversed version of arr
 # - Output arr
 
+# def diamond(n)
+#   middle = '*' * n
+#   arr = []
+
+#   i = 1
+#   while i < n
+#     arr << ('*' * i).center(n)
+#     i += 2
+#   end
+
+#   puts(arr + [middle] + arr.reverse)
+# end
+
+# Further Exploration
+# Try modifying your solution or our solution so it prints only the outline of
+# the diamond:
+
+def get_hollow_row(width)
+  return '*' if width == 1
+  spaces = width - 2
+  "*#{' ' * spaces}*"
+end
+
 def diamond(n)
-  middle = '*' * n
+  middle = get_hollow_row(n)
   arr = []
 
   i = 1
   while i < n
-    arr << ('*' * i).center(n)
+    arr << get_hollow_row(i).center(n)
     i += 2
   end
 
@@ -63,6 +86,6 @@ end
 
 diamond 1
 puts nil
-diamond 3
+diamond 5
 puts nil
 diamond 9
