@@ -120,87 +120,118 @@
 # - Iterate over program_queue
 #   - Each iteration, do the command, using program_memory for storage
 
+# Further Exploration:
+# Add some error handling to your method. In particular, have the method detect
+# empty stack conditions, and invalid tokens in the program, and report those.
+# Ideally, the method should return an error message if an error occurs, and
+# nil if the program runs successfully.
+COMMANDS = {
+  "PUSH" => :do_push,
+  "ADD" => :do_add,
+  "SUB" => :do_sub,
+  "MULT" => :do_mult,
+  "DIV" => :do_div,
+  "MOD" => :do_mod,
+  "POP" => :do_pop,
+  "PRINT" => :do_print
+}
+
+def minilang(commands)
+  program_memory = { register: 0, stack: [] }
+  program_queue = commands.split
+
+  program_queue.each do |command|
+    if COMMANDS.key? command
+      value = method(COMMANDS[command]).call program_memory
+      return value if value
+    elsif command.to_i.to_s == command
+      program_memory[:register] = command.to_i
+    else
+      return "InvalidCommandError"
+    end
+  end
+
+  nil
+end
+
 def do_push(program_memory)
   program_memory[:stack].push program_memory[:register]
+
+  nil
 end
 
 def do_add(program_memory)
-  program_memory[:register] += program_memory[:stack].pop
+  popped = get_pop program_memory
+  return popped if popped.is_a? String
+
+  program_memory[:register] += popped
+
+  nil
 end
 
 def do_sub(program_memory)
-  program_memory[:register] -= program_memory[:stack].pop
+  popped = get_pop program_memory
+  return popped if popped.is_a? String
+
+  program_memory[:register] -= popped
+
+  nil
 end
 
 def do_mult(program_memory)
-  program_memory[:register] *= program_memory[:stack].pop
+  popped = get_pop program_memory
+  return popped if popped.is_a? String
+
+  program_memory[:register] *= popped
+
+  nil
 end
 
 def do_div(program_memory)
-  program_memory[:register] /= program_memory[:stack].pop
+  popped = get_pop program_memory
+  return popped if popped.is_a? String
+  return "DivideByZeroError" if popped == 0
+
+  program_memory[:register] /= popped
+
+  nil
 end
 
 def do_mod(program_memory)
-  program_memory[:register] %= program_memory[:stack].pop
+  popped = get_pop program_memory
+  return popped if popped.is_a? String
+  return "DivideByZeroError" if popped == 0
+
+  program_memory[:register] %= popped
+
+  nil
 end
 
 def do_pop(program_memory)
-  program_memory[:register] = program_memory[:stack].pop
+  popped = get_pop program_memory
+  return popped if popped.is_a? String
+
+  program_memory[:register] = popped
+
+  nil
 end
 
 def do_print(program_memory)
   puts program_memory[:register]
 end
 
-# rubocop: disable Migration/CyclomaticComplexity
-def minilang(commands)
-  program_memory = { register: 0, stack: [] }
-  program_queue = commands.split
-
-  program_queue.each do |command|
-    case command
-    when "PUSH" then do_push(program_memory)
-    when "ADD" then do_add(program_memory)
-    when "SUB" then do_sub(program_memory)
-    when "MULT" then do_mult(program_memory)
-    when "DIV" then do_div(program_memory)
-    when "MOD" then do_mod(program_memory)
-    when "POP" then do_pop(program_memory)
-    when "PRINT" then do_print(program_memory)
-    else program_memory[:register] = command.to_i
-    end
-  end
+def get_pop(program_memory)
+  return "StackError" if program_memory[:stack].size == 0
+  program_memory[:stack].pop
 end
-# rubocop: enable Migration/CyclomaticComplexity
 
-minilang('PRINT')
-# 0
+p minilang "POOP" # InvalidCommandError
+p minilang "POP" # StackError
+p minilang "PUSH 5 DIV" # DivideByZeroError
 
-minilang('5 PUSH 3 MULT PRINT')
-# 15
+# Further Exploration
+# Try writing a minilang program to evaluate and print the result of this
+# expression:
 
-minilang('5 PRINT PUSH 3 PRINT ADD PRINT')
-# 5
-# 3
-# 8
-
-minilang('5 PUSH POP PRINT')
-# 5
-
-minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT')
-# 5
-# 10
-# 4
-# 7
-
-minilang('3 PUSH PUSH 7 DIV MULT PRINT ')
-# 6
-
-minilang('4 PUSH PUSH 7 MOD MULT PRINT ')
-# 12
-
-minilang('-3 PUSH 5 SUB PRINT')
-# 8
-
-minilang('6 PUSH')
-# (nothing printed; no PRINT commands)
+# (3 + (4 * 5) - 7) / (5 % 3)
+p minilang "3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 5 PUSH 4 MULT ADD SUB DIV PRINT"
