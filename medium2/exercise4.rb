@@ -34,20 +34,42 @@
 #   - If open is ever negative, return false
 # - return whether open is not zero
 
+# def balanced?(str)
+#   open = 0
+#   str.each_char do |char|
+#     open += 1 if char == '('
+#     open -= 1 if char == ')'
+#     return false if open < 0
+#   end
+#   open == 0
+# end
+
+# There are a few other characters that should be matching as well. Square
+# brackets and curly brackets normally come in pairs. Quotation marks(single
+# and double) also typically come in pairs and should be balanced. Can you
+# expand this method to take into account those characters?
+
+OPEN_BRACKETS = ['(', '[', '{']
+CLOSE_BRACKETS = [')', ']', '}']
+
 def balanced?(str)
-  open = 0
+  open = [0, 0, 0]
   str.each_char do |char|
-    open += 1 if char == '('
-    open -= 1 if char == ')'
-    return false if open < 0
+    open.map!.with_index do |current, index|
+      current += 1 if OPEN_BRACKETS[index] == char
+      current -= 1 if CLOSE_BRACKETS[index] == char
+      return false if current < 0
+
+      current
+    end
   end
-  open == 0
+  open.all?(&:zero?)
 end
 
 p balanced?('What (is) this?') == true
-p balanced?('What is) this?') == false
+p balanced?('What {is) this?') == false
 p balanced?('What (is this?') == false
-p balanced?('((What) (is this))?') == true
+p balanced?('((W{h}at) (is [th]is))?') == true
 p balanced?('((What)) (is this))?') == false
 p balanced?('Hey!') == true
 p balanced?(')Hey!(') == false
