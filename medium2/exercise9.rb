@@ -55,16 +55,23 @@
 #     - If so swap
 # - Return array
 
+# Further Exploration
+# Note that we did not use the optimization suggested on the Wiki page that
+# skips looking at tail elements that we know are already sorted. If your
+# solution also skipped this optimization, try modifying your solution so it
+# uses that optimization.
 def bubble_sort!(arr)
+  last_element = -1
   loop do
     swapped = false
 
-    arr[0...-1].each_index do |i|
+    arr[0...last_element].each_index do |i|
       if arr[i] > arr[i + 1]
         arr[i + 1], arr[i] = arr[i..i + 1]
         swapped = true
       end
     end
+    last_element -= 1
 
     break unless swapped
   end
